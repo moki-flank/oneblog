@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mojian.mapper.SysTagMapper">
+
+
+    <insert id="addArticleTagRelations">
+        INSERT INTO sys_article_tag (article_id, tag_id)
+        VALUES
+        <foreach item="tagId" index="index" collection="tagIds"
+                 open="" separator="," close="">
+            (#{articleId}, #{tagId})
+        </foreach>
+    </insert>
+
+    <select id="getTagsApi" resultType="com.mojian.vo.tag.TagListVo">
+        SELECT
+            tag.id,
+            tag.NAME,
+            count(sat.article_id) AS articleNum
+        FROM
+            sys_tag tag
+                LEFT JOIN sys_article_tag sat ON tag.id = sat.tag_id
+        GROUP BY tag.id
+    </select>
+
+    <select id="getTagIdsByArticleId" resultType="java.lang.Integer">
+        SELECT
+            tag.id
+        FROM
+            sys_tag tag
+            LEFT JOIN sys_article_tag sat ON tag.id = sat.tag_id
+        where sat.article_id = #{id}
+    </select>
+    <select id="getTagByArticleId" resultType="com.mojian.vo.tag.TagListVo">
+        SELECT
+            tag.id,
+            tag.name
+        FROM
+            sys_tag tag
+            LEFT JOIN sys_article_tag sat ON tag.id = sat.tag_id
+        where sat.article_id = #{id}
+    </select>
+
+    <delete id="deleteArticleTagsByArticleIds">
+        DELETE FROM sys_article_tag WHERE article_id IN
+        <foreach item="id" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

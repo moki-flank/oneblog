@@ -1,0 +1,212 @@
+
+
+
+
+#app {
+  min-height: 100vh;
+  padding-top: 70px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+}
+
+
+@font-face {
+  font-family: 'font';
+  src: url('@/assets/font/2.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+.underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $primary;
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+
+.app-content {
+  min-height: calc(100vh - 80px);
+  width: 100%;
+}
+
+/* 全局滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;  /* 稍微调窄一点 */
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba($primary, 0.8);  /* 增加不透明度 */
+  transition: all 0.3s ease;
+  border-radius: 10px;
+
+  &:hover {
+    background: $primary;  /* 悬浮时完全不透明 */
+  }
+}
+
+/* 深色模式滚动条 */
+:root[data-theme='dark'] {
+  ::-webkit-scrollbar-thumb {
+    background: rgba($primary, 0.6);  /* 深色模式下的基础颜色 */
+
+    &:hover {
+      background: rgba($primary, 0.8);  /* 深色模式下悬浮颜色 */
+    }
+  }
+
+  /* 代码块滚动条特殊处理 */
+  pre::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);  /* 代码块中使用浅色滚动条 */
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+
+
+
+/* Header 相关的所有元素应用字体 */
+.header,
+.header *,
+.nav,
+.nav *,
+.menu,
+.menu *,
+.dropdown,
+.dropdown *,
+.dropdown-menu,
+.dropdown-menu *,
+.nav-item,
+.nav-link,
+.header-title,
+.logo-text,
+.menu-item {
+  font-family: "font" !important;
+}
+
+/* 添加图标特殊规则 */
+.fa,
+.fas,
+.far,
+.fab {
+  font-family: 'Font Awesome 5 Free' !important;
+}
+
+.fab {
+  font-family: 'Font Awesome 5 Brands' !important;
+}
+
+/* 鼠标点击效果容器 */
+.cursor-container {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+/* 鼠标点击效果 */
+.cursor-fx {
+  pointer-events: none;
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid $primary;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: cursorFx 0.5s ease-out forwards;
+}
+
+@keyframes cursorFx {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+::selection {
+  background-color: #45bcd1 !important;
+  color: #fff;
+}
+
+::-moz-selection {
+  background-color: #45bcd1 !important;
+  color: #fff;
+}
+
+::-webkit-selection {
+  background-color: #45bcd1 !important;
+  color: #fff;
+}
+
+
+
+
+
+:root {
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --background: #{$background};
+  --surface: #{$surface};
+  --border-color: rgba(0, 0, 0, 0.1);
+  --card-bg: #{$surface};
+  --loading-bg: #{$loading-bg};
+  --hover-bg: #{rgba($primary, 0.1)};
+  --input-bg: #{$surface};
+  --surface-rgb: 255, 255, 255;
+  --border-color-rgb: 0, 0, 0;
+  --about-me: linear-gradient(135deg, #409efff2, #a855f7f2);
+  --reply-message-bg: #f9f6f6;
+}
+
+:root[data-theme='dark'] {
+  --text-primary: #{map-get($dark, 'text-primary')};
+  --text-secondary: #{map-get($dark, 'text-secondary')};
+  --background: #{map-get($dark, 'background')};
+  --surface: #{map-get($dark, 'surface')};
+  --border-color: #{map-get($dark, 'border')};
+  --card-bg: #{map-get($dark, 'card-bg')};
+  --hover-bg: #{map-get($dark, 'hover-bg')};
+  --input-bg: #{map-get($dark, 'input-bg')};
+  --loading-bg: #{map-get($dark, 'loading-bg')};
+  --surface-rgb: 17, 25, 39;
+  --border-color-rgb: 255, 255, 255;
+  --about-me:linear-gradient(135deg, #1f2937, #000000);
+  --reply-message-bg: #333; 
+}

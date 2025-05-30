@@ -1,0 +1,12 @@
+blog-admin/
+├── src/
+│   ├── api/                # API 请求
+│   ├── assets/            # 静态资源
+│   ├── components/        # 公共组件
+│   ├── layouts/           # 布局组件
+│   ├── router/            # 路由配置
+│   ├── store/             # Pinia 状态管理
+│   ├── styles/            # 全局样式
+│   ├── types/             # TypeScript 类型定义
+│   ├── utils/             # 工具函数
+│   └── views/             # 页面组件 

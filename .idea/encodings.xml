@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/blog/mojian-admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog/mojian-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog/mojian-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog/mojian-commom/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog/mojian-file/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog/mojian-quartz/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog/mojian-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

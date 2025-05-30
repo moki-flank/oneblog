@@ -1,0 +1,27 @@
+{
+    "name" : "blog-mini",
+    "appid" : "__UNI__2307702",
+    "description" : "博客小程序",
+    "versionName" : "1.0.0",
+    "versionCode" : "100",
+    "transformPx" : false,
+    "app-plus" : {
+        "usingComponents" : true,
+        "nvueCompiler" : "uni-app",
+        "compilerVersion" : 3,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        }
+    },
+    "mp-weixin" : {
+        "appid" : "wx3e9678e6cdabd38f",
+        "setting" : {
+            "urlCheck" : false,
+            "minified" : true
+        },
+        "usingComponents" : true
+    }
+}

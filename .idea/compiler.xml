@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mojian-commom" />
+        <module name="mojian-quartz" />
+        <module name="mojian-auth" />
+        <module name="mojian-admin" />
+        <module name="mojian-server" />
+        <module name="mojian-api" />
+        <module name="mojian-file" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mojian-admin" options="-parameters" />
+      <module name="mojian-api" options="-parameters" />
+      <module name="mojian-auth" options="-parameters" />
+      <module name="mojian-commom" options="-parameters" />
+      <module name="mojian-file" options="-parameters" />
+      <module name="mojian-quartz" options="-parameters" />
+      <module name="mojian-server" options="-parameters" />
+    </option>
+  </component>
+</project>

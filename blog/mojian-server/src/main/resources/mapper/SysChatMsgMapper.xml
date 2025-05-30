@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mojian.mapper.SysChatMsgMapper">
+    <!-- 可以在这里添加自定义的复杂SQL查询 -->
+    <select id="getChatMsgList" resultType="com.mojian.vo.chat.ChatSendMsgVo">
+        select
+            m.id,
+            m.type,
+            m.content,
+            m.location,
+            m.is_recalled,
+            m.file_name,
+            m.file_size,
+            m.duration,
+            m.reply_id,
+            m.reply_content,
+            ru.nickname as replyUserName,
+            m.create_time as `time`,
+            u.id as userId,
+            u.nickname as name,
+            u.avatar
+        from chat_msg m
+            left join sys_user u on m.sender_id = u.id
+            left join sys_user ru on m.reply_user_id = ru.id
+        order by m.create_time desc
+    </select>
+</mapper>

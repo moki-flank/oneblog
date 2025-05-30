@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mojian.mapper.SysArticleMapper">
+
+    <resultMap id="articleResultMap" type="com.mojian.vo.article.ArticleListVo">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="summary" column="summary"/>
+        <result property="cover" column="cover"/>
+        <result property="contentMd" column="content_md"/>
+        <result property="quantity" column="quantity"/>
+        <result property="isStick" column="is_stick"/>
+        <result property="isRecommend" column="is_recommend"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="likeNum" column="likeNum"/>
+        <result property="commentNum" column="commentNum"/>
+        <result property="categoryName" column="categoryName"/>
+        <collection property="tags" ofType="com.mojian.vo.tag.TagListVo" column="id" select="com.mojian.mapper.SysTagMapper.getTagByArticleId" />
+    </resultMap>
+
+    <resultMap id="articleDetailResultMap" type="com.mojian.vo.article.ArticleDetailVo">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <result property="title" column="title"/>
+        <result property="cover" column="cover"/>
+        <result property="contentMd" column="content_md"/>
+        <result property="content" column="content"/>
+        <result property="quantity" column="quantity"/>
+        <result property="readType" column="read_type"/>
+        <result property="likeNum" column="likeNum"/>
+        <result property="aiDescribe" column="ai_describe"/>
+        <result property="commentNum" column="commentNum"/>
+        <result property="isOriginal" column="is_original"/>
+        <result property="originalUrl" column="original_Url"/>
+        <result property="commentNum" column="commentNum"/>
+        <result property="createTime" column="create_time"/>
+        <!-- 一对一映射 -->
+        <association property="category" javaType="com.mojian.entity.SysCategory">
+            <id property="id" column="categoryId"/>
+            <result property="name" column="categoryName"/>
+        </association>
+        <collection property="tags" ofType="com.mojian.vo.tag.TagListVo" column="id" select="com.mojian.mapper.SysTagMapper.getTagByArticleId" />
+    </resultMap>
+
+    <insert id="like">
+        INSERT INTO sys_article_like(user_id, article_id) VALUES (#{userId}, #{articleId})
+    </insert>
+
+    <update id="updateBatchQuantity">
+        UPDATE sys_article
+        SET
+        quantity = CASE
+        <foreach collection="articles" item="article" separator="">
+            WHEN id = #{article.id} THEN #{article.quantity}
+        </foreach>
+        END
+        WHERE id IN
+        <foreach collection="articles" item="article" open="(" separator="," close=")">
+            #{article.id}
+        </foreach>
+    </update>
+
+
+    <delete id="unLike">
+        DELETE FROM sys_article_like WHERE user_id = #{userId} AND article_id = #{articleId}
+    </delete>
+
+
+    <select id="getArticleListApi" resultMap="articleResultMap">
+        SELECT
+            a.id,
+            a.user_id,
+            a.title,
+            a.summary,
+            a.cover,
+            a.content_md,
+            a.quantity,
+            a.is_stick,
+            a.create_time,
+            c.name AS categoryName,
+            u.nickname,
+            u.avatar
+        FROM sys_article a
+        LEFT JOIN sys_category c ON a.category_id = c.id
+        LEFT JOIN sys_user u ON a.user_id = u.id
+        WHERE a.status = 1
+        <if test="tagId != null">
+            AND a.id in (SELECT article_id FROM sys_article_tag WHERE tag_id = #{tagId})
+        </if>
+        <if test="categoryId != null">
+            AND a.category_id = #{categoryId}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND a.title like concat('%',#{keyword},'%')
+        </if>
+        order by a.is_stick desc, a.create_time desc
+    </select>
+
+    <select id="getArticleDetail" resultMap="articleDetailResultMap">
+        SELECT
+            a.id,
+            a.user_id,
+            a.title,
+            a.summary,
+            a.cover,
+            a.content_md,
+            a.content,
+            a.quantity,
+            a.is_stick,
+            a.read_type,
+            a.create_time,
+            a.is_original,
+            a.original_url,
+            a.ai_describe,
+            c.id AS categoryId,
+            c.name AS categoryName,
+            u.nickname,
+            u.avatar,
+            (SELECT COUNT(sc.id) FROM sys_comment sc WHERE sc.article_id = a.id) AS commentNum,
+            (SELECT COUNT(sal.id) FROM sys_article_like sal WHERE sal.article_id = a.id) AS likeNum
+        FROM sys_article a
+        LEFT JOIN sys_category c ON a.category_id = c.id
+        LEFT JOIN sys_user u ON a.user_id = u.id
+        where a.id = #{id}
+    </select>
+
+    <select id="getArticleArchive" resultType="java.lang.Integer">
+        SELECT
+            DATE_FORMAT( create_time, '%Y' ) AS YEAR
+        FROM
+            sys_article
+        WHERE
+            status = 1
+        GROUP BY YEAR
+        order by YEAR desc
+    </select>
+
+    <select id="getArticleByYear" resultType="com.mojian.vo.article.ArticleListVo">
+        select id,title,create_time
+        from sys_article
+        where status = 1 and DATE_FORMAT( create_time, '%Y' ) = #{year} order by create_time desc
+    </select>
+
+    <select id="selectPageList" resultMap="articleResultMap">
+        SELECT
+            a.id,
+            a.title,
+            a.summary,
+            a.cover,
+            a.is_stick,
+            a.is_recommend,
+            a.quantity,
+            a.status,
+            a.create_time,
+            c.name AS categoryName,
+            u.nickname,
+            u.avatar
+        FROM sys_article a
+        LEFT JOIN sys_category c ON a.category_id = c.id
+        left join sys_user u on a.user_id = u.id
+        <where>
+            <if test="query.status != null">
+                a.status = #{query.status}
+            </if>
+            <if test="query.title != null and query.title != ''">
+                and a.title like concat('%',#{query.title},'%')
+            </if>
+            <if test="query.categoryId != null">
+                and a.category_id = #{query.categoryId}
+            </if>
+            <if test="query.tagId != null">
+                AND a.id in (SELECT article_id FROM sys_article_tag WHERE tag_id = #{query.tagId})
+            </if>
+        </where>
+        order by a.is_stick desc, a.create_time desc
+    </select>
+
+    <select id="getThisYearContributionData" resultType="com.mojian.vo.dashboard.ContributionData">
+        SELECT
+            DATE_FORMAT( create_time, '%Y-%m-%d' ) AS `date`,
+            COUNT( id ) AS count
+        FROM
+            sys_article
+        WHERE date(create_time) &gt;= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+        group by `date` order by `date` asc
+    </select>
+
+    <select id="getUserIsLike" resultType="java.lang.Boolean">
+        SELECT
+            COUNT( id ) > 0 AS isLike
+        FROM
+            sys_article_like
+        WHERE
+            user_id = #{userId}
+            AND article_id = #{articleId}
+    </select>
+    <select id="selectCountByCategory" resultType="java.util.Map">
+        SELECT
+            c.name AS name,
+            COUNT( a.id ) AS value
+        FROM
+            sys_article a
+            LEFT JOIN sys_category c ON a.category_id = c.id
+        GROUP BY
+            c.id,
+            c.name
+    </select>
+    <select id="selectMyLike" resultType="com.mojian.vo.article.ArticleListVo">
+        SELECT
+            a.id,
+            a.title,
+            a.summary,
+            a.cover,
+            a.content_md,
+            a.quantity,
+            a.is_stick,
+            a.create_time
+        FROM
+            sys_article a
+            left join sys_article_like sal on a.id = sal.article_id
+        WHERE
+            sal.user_id = #{userId}
+        order by a.is_stick desc, a.create_time desc
+    </select>
+    <select id="selectMyArticle" resultMap="articleResultMap">
+        SELECT
+            a.id,
+            a.title,
+            a.summary,
+            a.cover,
+            a.content_md,
+            a.quantity,
+            a.is_stick,
+            a.status,
+            a.create_time,
+            c.name AS categoryName,
+            (SELECT COUNT(sc.id) FROM sys_comment sc WHERE sc.article_id = a.id) AS commentNum,
+            (SELECT COUNT(sal.id) FROM sys_article_like sal WHERE sal.article_id = a.id) AS likeNum
+        FROM
+            sys_article a
+            LEFT JOIN sys_category c ON a.category_id = c.id
+        WHERE
+            a.user_id = #{article.userId}
+        <if test="article.status != null">
+            AND a.status = #{article.status}
+        </if>
+        <if test="article.title != null and article.title != ''">
+            AND a.title like concat('%',#{article.title},'%')
+        </if>
+        order by a.is_stick desc, a.create_time desc
+    </select>
+
+</mapper>

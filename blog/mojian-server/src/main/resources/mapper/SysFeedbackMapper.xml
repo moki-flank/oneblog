@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mojian.mapper.SysFeedbackMapper">
+    <!-- 可以在这里添加自定义的复杂SQL查询 -->
+
+    <select id="page" resultType="com.mojian.vo.feedback.SysFeedbackVo">
+        select
+            sf.*,
+            su.nickname,
+            su.avatar
+        from sys_feedback sf
+        left join sys_user su on su.id = sf.user_id
+        <where>
+            <if test="sysFeedback.userId != null">
+                and sf.user_id = #{sysFeedback.userId}
+            </if>
+            <if test="sysFeedback.type != null and sysFeedback.type != ''">
+                and sf.type = #{sysFeedback.type}
+            </if>
+            <if test="sysFeedback.status != null">
+                and sf.status = #{sysFeedback.status}
+            </if>
+
+        </where>
+        order by sf.create_time desc
+    </select>
+</mapper>

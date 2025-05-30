@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mojian.mapper.SysAlbumMapper">
+    <!-- 可以在这里添加自定义的复杂SQL查询 -->
+    <select id="getAlbumList" resultType="com.mojian.entity.SysAlbum">
+        select
+            a.id,
+            a.cover,
+            a.name,
+            a.description,
+            a.is_lock,
+            a.create_time,
+            count(p.id) as photoNum
+        from sys_album a
+        left join sys_photo p on a.id = p.album_id
+        group by a.id order by a.sort asc,a.create_time desc
+    </select>
+</mapper>

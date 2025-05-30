@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mojian.mapper.SysCommentMapper">
+    <!-- 可以在这里添加自定义的复杂SQL查询 -->
+    <select id="getComments" resultType="com.mojian.vo.comment.CommentListVo">
+        SELECT
+        c.*,
+        u.nickname,
+        u.avatar
+        FROM sys_comment c
+        LEFT JOIN sys_user u ON c.user_id = u.id
+        WHERE c.article_id = #{articleId} and c.parent_id is null
+        <choose>
+            <when test="sortType == 'like'">
+                ORDER BY c.like_count DESC
+            </when>
+            <otherwise>
+                ORDER BY c.create_time DESC
+            </otherwise>
+        </choose>
+
+    </select>
+    <select id="getChildrenComment" resultType="com.mojian.vo.comment.CommentListVo">
+        SELECT
+            c.*,
+            u.nickname,
+            u.avatar,
+            ru.nickname as replyNickname
+        FROM sys_comment c
+        LEFT JOIN sys_user u ON c.user_id = u.id
+        LEFT JOIN sys_user ru ON c.reply_user_id = ru.id
+        WHERE c.parent_id = #{id}
+        ORDER BY c.create_time DESC
+    </select>
+    <select id="selectPage" resultType="com.mojian.vo.comment.SysCommentVO">
+        SELECT
+            c.id,
+            u.avatar,
+            u.nickname,
+            IF(ru.nickname is null,'无',ru.nickname) as replyNickname,
+            a.title as articleTitle,
+            c.content,
+            c.create_time
+        FROM
+        sys_comment c
+        LEFT JOIN  sys_user u ON c.user_id = u.id
+        LEFT JOIN sys_article a ON c.article_id = a.id
+        LEFT JOIN sys_user ru ON c.reply_user_id = ru.id
+        order by c.create_time desc
+    </select>
+    <select id="selectMyComment" resultType="com.mojian.vo.comment.CommentListVo">
+        SELECT
+            c.id,
+            a.id as articleId,
+            a.title as articleTitle,
+            c.content,
+            c.like_count,
+            c.create_time
+        FROM
+            sys_comment c
+            LEFT JOIN sys_article a ON c.article_id = a.id
+        WHERE
+            c.user_id = #{userId}
+        order by c.create_time desc
+    </select>
+    <select id="getMyReply" resultType="com.mojian.vo.comment.CommentListVo">
+        SELECT
+            c.id,
+            a.id as articleId,
+            a.title as articleTitle,
+            u.nickname as replyNickname,
+            c.content,
+            c.like_count,
+            c.create_time
+        FROM
+            sys_comment c
+            LEFT JOIN sys_article a ON c.article_id = a.id
+            left join sys_user u on c.reply_user_id = u.id
+        WHERE
+            c.user_id = #{userId} and c.reply_user_id is not null
+        order by c.create_time desc
+    </select>
+</mapper>
