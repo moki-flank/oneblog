@@ -39,7 +39,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
     },
     server: {
       host: '0.0.0.0',
-      port: Number(env.VITE_APP_PORT) || 3000,
+      port: Number(env.VITE_APP_PORT) || 15930,
       open: false,
       proxy: {
         '/api': {
