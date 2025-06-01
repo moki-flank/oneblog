@@ -196,7 +196,7 @@ export default {
             },
             { 
               name: '后台管理', 
-              path: import.meta.env.VITE_APP_ADMIN_URL || 'http://localhost:3000',
+              path: import.meta.env.VITE_APP_ADMIN_URL || 'http://localhost:15930',
               icon: 'fas fa-tv',
               colorClass: 'admin-link',
               external: true 

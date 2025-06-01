@@ -1,7 +1,7 @@
 export default function request(options) {
     //后端接口地址
    //const baseUrl = 'https://www.shiyit.com/mojian';
-   const baseUrl = 'http://localhost:8800';
+   const baseUrl = 'http://localhost:15900';
    const token = uni.getStorageSync("token")
    const {
        method,

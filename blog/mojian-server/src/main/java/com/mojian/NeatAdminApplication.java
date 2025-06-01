@@ -11,6 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class NeatAdminApplication {
     public static void main(String[] args) {
         SpringApplication.run(NeatAdminApplication.class, args);
-        System.out.println("系统启动成功！");
+        System.out.println("后端已启动");  // ✅ 正确写法
     }
 }
