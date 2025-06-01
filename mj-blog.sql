@@ -4,7 +4,7 @@
  Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 80200
- Source Host           : localhost:3306
+ Source Host           : localhost:10306
  Source Schema         : mj-blog
 
  Target Server Type    : MySQL
@@ -361,8 +361,8 @@ CREATE TABLE `sys_article`
 INSERT INTO `sys_article`
 VALUES (292, 1, 20, '个人开发的管理系统  Neat-Admin', 'https://img.shiyit.com/20241127/屏幕截图 2024-11-27 220451.png',
         '基于vue3+typescript+elmentui-plus开发的一款后台管理系统，功能跟若依差不多，主要不同的是样式美化，要比若依更漂亮',
-        '<h4><a id=\"_0\"></a>前言</h4>\r\n<p>本后台管理系统基于当下前沿的技术栈 vue3、typescript 以及 elementui-plus 进行精心构建。在功能维度上，其与若依系统具备相当的完整性与丰富度，涵盖了诸如用户管理、权限控制、数据统计分析、业务流程处理等一系列核心后台管理功能模块，能够高效地支撑各类企业级业务运营需求。然而，本系统在视觉呈现方面展现出独特的优势，通过对样式的深度美化与精心雕琢，采用了更为先进的 UI 设计理念与精细化的布局策略，运用精致的色彩搭配、优雅的字体选择以及灵动的交互元素设计，使其整体视觉效果相较于若依更为美观、精致且专业，能够为用户带来更舒适、高效且具品质感的操作体验，极大地提升了后台管理工作的愉悦度与便捷性，彰显出卓越的专业性与高端品质形象。</p>\r\n<h4><a id=\"_4\"></a>视频预览</h4>\r\n<p><video height=\"100%\" width=\"100%\" src=\"http://127.0.0.1:15900/localFile/local-plus/upload/20241120_230652.mp4\" controls autoplay></video></p>\r\n<h4><a id=\"_8\"></a>仓库地址</h4>\r\n<p><a href=\"https://gitee.com/quequnlong/vue-neat-admin\" target=\"_blank\">Neat-Admin</a></p>\r\n',
-        '#### 前言\r\n\r\n  本后台管理系统基于当下前沿的技术栈 vue3、typescript 以及 elementui-plus 进行精心构建。在功能维度上，其与若依系统具备相当的完整性与丰富度，涵盖了诸如用户管理、权限控制、数据统计分析、业务流程处理等一系列核心后台管理功能模块，能够高效地支撑各类企业级业务运营需求。然而，本系统在视觉呈现方面展现出独特的优势，通过对样式的深度美化与精心雕琢，采用了更为先进的 UI 设计理念与精细化的布局策略，运用精致的色彩搭配、优雅的字体选择以及灵动的交互元素设计，使其整体视觉效果相较于若依更为美观、精致且专业，能够为用户带来更舒适、高效且具品质感的操作体验，极大地提升了后台管理工作的愉悦度与便捷性，彰显出卓越的专业性与高端品质形象。\r\n  \r\n  #### 视频预览\r\n    <video height=100% width=100% src=\"http://127.0.0.1:15900/localFile/local-plus/upload/20241120_230652.mp4\" controls autoplay></video>\r\n  \r\n  \r\n  #### 仓库地址\r\n  [Neat-Admin](https://gitee.com/quequnlong/vue-neat-admin)',
+        '<h4><a id=\"_0\"></a>前言</h4>\r\n<p>本后台管理系统基于当下前沿的技术栈 vue3、typescript 以及 elementui-plus 进行精心构建。在功能维度上，其与若依系统具备相当的完整性与丰富度，涵盖了诸如用户管理、权限控制、数据统计分析、业务流程处理等一系列核心后台管理功能模块，能够高效地支撑各类企业级业务运营需求。然而，本系统在视觉呈现方面展现出独特的优势，通过对样式的深度美化与精心雕琢，采用了更为先进的 UI 设计理念与精细化的布局策略，运用精致的色彩搭配、优雅的字体选择以及灵动的交互元素设计，使其整体视觉效果相较于若依更为美观、精致且专业，能够为用户带来更舒适、高效且具品质感的操作体验，极大地提升了后台管理工作的愉悦度与便捷性，彰显出卓越的专业性与高端品质形象。</p>\r\n<h4><a id=\"_4\"></a>视频预览</h4>\r\n<p><video height=\"100%\" width=\"100%\" src=\"http://127.0.0.1:15940/localFile/local-plus/upload/20241120_230652.mp4\" controls autoplay></video></p>\r\n<h4><a id=\"_8\"></a>仓库地址</h4>\r\n<p><a href=\"https://gitee.com/quequnlong/vue-neat-admin\" target=\"_blank\">Neat-Admin</a></p>\r\n',
+        '#### 前言\r\n\r\n  本后台管理系统基于当下前沿的技术栈 vue3、typescript 以及 elementui-plus 进行精心构建。在功能维度上，其与若依系统具备相当的完整性与丰富度，涵盖了诸如用户管理、权限控制、数据统计分析、业务流程处理等一系列核心后台管理功能模块，能够高效地支撑各类企业级业务运营需求。然而，本系统在视觉呈现方面展现出独特的优势，通过对样式的深度美化与精心雕琢，采用了更为先进的 UI 设计理念与精细化的布局策略，运用精致的色彩搭配、优雅的字体选择以及灵动的交互元素设计，使其整体视觉效果相较于若依更为美观、精致且专业，能够为用户带来更舒适、高效且具品质感的操作体验，极大地提升了后台管理工作的愉悦度与便捷性，彰显出卓越的专业性与高端品质形象。\r\n  \r\n  #### 视频预览\r\n    <video height=100% width=100% src=\"http://127.0.0.1:15940/localFile/local-plus/upload/20241120_230652.mp4\" controls autoplay></video>\r\n  \r\n  \r\n  #### 仓库地址\r\n  [Neat-Admin](https://gitee.com/quequnlong/vue-neat-admin)',
         1, 0, 1, 1, 1, 0, NULL, 263, NULL, NULL, '2024-11-27 22:05:36', '2024-12-27 04:00:00');
 
 -- ----------------------------
@@ -1375,7 +1375,7 @@ CREATE TABLE `sys_web_config`
 -- Records of sys_web_config
 -- ----------------------------
 INSERT INTO `sys_web_config`
-VALUES (1, 'http://127.0.0.1:15900/localFile/local-plus/upload/e29c144950d45c11301503b80946ffb3-260x358.png', '墨笺博客',
+VALUES (1, 'http://127.0.0.1:15940/localFile/local-plus/upload/e29c144950d45c11301503b80946ffb3-260x358.png', '墨笺博客',
         '一个专注于技术分享的博客平台', '', 'https://www.shiyit.com', '拾壹', '十八岁以后我的梦想变成了买房买车。',
         'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix', NULL, NULL, 'https://github.com/quequnlong',
         'https://gitee.com/quequnlong', '1248954763', '779881756', '1248954763@qq.com', '1248954763',
@@ -1516,7 +1516,7 @@ CREATE TABLE `sys_file_oss`
 
 INSERT INTO `sys_file_oss` (`id`, `domain`, `access_key`, `secret_key`, `bucket`, `base_path`, `platform`, `is_enable`,
                             `storage_path`, `enable_access`, `path_patterns`, region, `create_time`)
-VALUES (1, 'http://127.0.0.1:15900/localFile/', '', '', '', 'local-plus/', 'local', 1, 'D:/Temp/', 1, 'localFile/**',
+VALUES (1, 'http://127.0.0.1:15940/localFile/', '', '', '', 'local-plus/', 'local', 1, 'D:/Temp/', 1, 'localFile/**',
         null,
         '2025-02-14 10:52:33');
 
